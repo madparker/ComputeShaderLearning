@@ -1,0 +1,30 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+struct Line{
+    float3 position;
+    float4 color;
+    float3 top;
+    float3 bottom;
+};
+
+RWStructuredBuffer<Line> lines;
+float resolution;
+
+[numthreads(32,32,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    float xPos = id.x/resolution;
+    Line ray = lines[id.x];
+    ray.color = float4(xPos, 0.0, 0.0, 1.0);
+    //ray.position = float3(id.x, 0.0, 0.0);
+
+    float f = 0;
+    for(int i = 0; i < resolution; i++){
+        Line a = lines[i];
+        f += a.position.y ;
+    }
+    ray.position = float3(id.x, f, 0.0);
+
+    lines[id.x] = ray;
+}
