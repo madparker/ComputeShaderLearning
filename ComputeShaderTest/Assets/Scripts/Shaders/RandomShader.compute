@@ -15,7 +15,10 @@ float resolution;
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
     float xPos = id.x/resolution;
-    Line ray = lines[id.x];
+    
+    
+    
+    /* Line ray = lines[id.x];
     ray.color = float4(xPos, 0.0, 0.0, 1.0);
     //ray.position = float3(id.x, 0.0, 0.0);
 
@@ -26,5 +29,5 @@ void CSMain (uint3 id : SV_DispatchThreadID)
     }
     ray.position = float3(id.x, f, 0.0);
 
-    lines[id.x] = ray;
+    lines[id.x] = ray;*/
 }
